@@ -7,15 +7,15 @@ There are Two Parts of this Repo:
 ## NonGUI Application
 Just clone this repo and go to the NonGUI folder.
 Compile all the java files
-```bash
+```java
   $ javac *.java
 ```
 and run the **DemoServer.java** file first in one terminal window
-```bash
+```java
   $ java DemoServer
 ```
 and then run the **DemoClient.java** files in another terminal window
-```bash
+```java
   $ java DemoClient
 ```
 now you can type messages from both terminal window and see the chat!
