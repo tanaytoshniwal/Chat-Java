@@ -4,8 +4,11 @@ import java.net.*;
 public class DemoServer {
 	static ServerSocket serverSocket=null;
 	static Socket client=null;
+	static DemoServer obj;
+	static Receive1 receiver;
+	static Send1 sender;
 	class Receive1 extends Thread{
-		public void run(){
+		synchronized public void run(){
 			try{
 				BufferedReader br=null;
 				try{
@@ -22,11 +25,11 @@ public class DemoServer {
 				}
 				br.close();
 			}
-			catch(IOException e){System.out.println("exception caught");}
+			catch(IOException e){System.exit(0);}
 		}
 	}
 	class Send1 extends Thread{
-		public void run(){
+		synchronized public void run(){
 			try{
 				OutputStream os=client.getOutputStream();
 				DataOutputStream dos=new DataOutputStream(os);
@@ -41,7 +44,7 @@ public class DemoServer {
 				}
 				dos.close();
 			}
-			catch(IOException e){System.out.println("exception occured");}
+			catch(IOException e){System.exit(0);}
 		}
 	}
 	public static void main(String[] args) throws IOException{
@@ -56,12 +59,12 @@ public class DemoServer {
 		}
 		client=serverSocket.accept();
 		
-		DemoServer obj=new DemoServer();
+		obj=new DemoServer();
 		
-		Receive1 receiver=obj.new Receive1();
-		Send1 sender=obj.new Send1();
-		receiver.start();
+		receiver=obj.new Receive1();
+		sender=obj.new Send1();
 		sender.start();
+		receiver.start();
 		
 	}
 }
