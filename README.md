@@ -23,3 +23,6 @@ now you can type messages from both terminal window and see the chat!
 _just type **quit** to exit_
 ## GUI application
 Still Working on this one...
+
+
+**Note**-```The connection will be hosted on port number 99```
