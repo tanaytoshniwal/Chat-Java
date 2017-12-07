@@ -1,0 +1,90 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+public class User2 extends JFrame implements ActionListener{
+	JButton connect,send;
+	JTextArea area;
+	JTextField msg;
+	Socket client=null;
+	public User2(){
+		setTitle("User2");
+		setSize(300,450);
+		setResizable(false);
+		setLayout(null);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setLocationRelativeTo(this);
+		connect=new JButton("connect");
+		send=new JButton("send");
+		area=new JTextArea();
+		msg=new JTextField();
+		area.setBounds(0, 50, 300, 250);
+		connect.setBounds(100, 10, 100, 30);
+		send.setBounds(100,360,100,30);
+		msg.setBounds(0, 310, 300, 30);
+		add(connect);
+		add(area);
+		add(send);
+		add(msg);
+		connect.addActionListener(this);
+	}
+	class Receive2 extends Thread{
+		synchronized public void run(){
+			try{
+				BufferedReader br=null;
+				try{
+					InputStream is=client.getInputStream();
+					br=new BufferedReader(new InputStreamReader(is));
+				}
+				catch(UnknownHostException e){
+					e.printStackTrace();
+					System.out.println("Unable to connect!");
+				}
+				String str="";
+				while((str=br.readLine())!=null){
+					area.append("User1:"+str+"\n");
+				}
+				br.close();
+			}
+			catch(IOException e){System.exit(1);}
+		}
+	}
+	@Override
+	public void actionPerformed(ActionEvent arg0){
+		JButton b=(JButton)arg0.getSource();
+		if(b==connect){
+			try{
+				client=new Socket(InetAddress.getLocalHost(),99);
+				User2.this.new Receive2().start();
+			}catch(IOException e){System.out.println("something");}
+		}
+		if(b==send){
+			try{
+				DataOutputStream dos=new DataOutputStream(client.getOutputStream());
+				String data=msg.getText().toString();
+				area.append("User2:"+data+"\n");
+				dos.write(data.getBytes());
+				dos.flush();
+				dos.close();
+			}catch(IOException e){
+				System.out.println("something");
+			}
+		}
+	}
+	public static void main(String[] args) {
+		new User2().setVisible(true);
+	}
+}
