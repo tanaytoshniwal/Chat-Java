@@ -21,6 +21,8 @@ and then run the **DemoClient.java** file in another terminal window
 now you can type messages from both terminal window...
 
 _just type **quit** to exit_
+### Demo:
+<img src='https://github.com/AlphaBAT69/Chat-Java/blob/master/gifs/nogui.gif' width='700px'>
 ## GUI application
 Just clone this repo and go to the GUI folder.
 Compile all the java files
@@ -38,6 +40,7 @@ and then run the **Client.java** file
 now you can chat from the frames that shows up...
 
 _just **close** the frames to exit_
-
+### Demo:
+<img src='https://github.com/AlphaBAT69/Chat-Java/blob/master/gifs/gui.gif' width='700px'>
 
 **Note**-```The connection will be hosted on port number 99```
