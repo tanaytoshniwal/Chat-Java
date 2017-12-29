@@ -23,6 +23,7 @@ now you can type messages from both terminal window...
 _just type **quit** to exit_
 ### Demo:
 <img src='https://github.com/AlphaBAT69/Chat-Java/blob/master/gifs/nogui.gif' width='700px'>
+
 ## GUI application
 Just clone this repo and go to the GUI folder.
 Compile all the java files
