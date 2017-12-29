@@ -30,14 +30,14 @@ public class Server extends javax.swing.JFrame {
     static Socket client=null;
     static Server obj;
     static Receive1 receiver;
-    static Send1 sender;
+    static DataOutputStream dos;
     public Server() {
         super("first");
         initComponents();
     }
     boolean b=true;
     class Receive1 extends Thread{
-		synchronized public void run(){
+		 public void run(){
 			try{
                             BufferedReader br=null;
                             try{
@@ -56,30 +56,6 @@ public class Server extends javax.swing.JFrame {
                             br.close();
 			}
 			catch(IOException e){}
-		}
-	}
-	class Send1 extends Thread{
-		synchronized public void run(){
-			try{
-                            OutputStream os=client.getOutputStream();
-                            DataOutputStream dos=new DataOutputStream(os);
-                            /*BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
-                            while(!(str=br.readLine()).equalsIgnoreCase("quit")){
-                            	dos.write(str.getBytes());
-                            	dos.write(13);
-                            	dos.flush();
-                            }*/
-                            String str=msg.getText();
-                            if(!str.equals("")){
-                                dos.write(str.getBytes());
-                                dos.write(13);
-                                dos.flush();
-                            }
-                            
-        msg.setText("");
-                            dos.close();
-			}
-			catch(Exception e){}
 		}
 	}
     /**
@@ -146,8 +122,23 @@ public class Server extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        sender=obj.new Send1();
-        sender.start();
+        try{
+                            /*BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+                            while(!(str=br.readLine()).equalsIgnoreCase("quit")){
+                            	dos.write(str.getBytes());
+                            	dos.write(13);
+                            	dos.flush();
+                            }*/
+                            String str=msg.getText();
+                            if(!str.equals("")){
+                                dos.write(str.getBytes());
+                                dos.write(13);
+                                dos.flush();
+                            }
+                            
+        msg.setText("");
+			}
+			catch(Exception e){}
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -170,6 +161,7 @@ public class Server extends javax.swing.JFrame {
 		client=serverSocket.accept();
 		receiver=obj.new Receive1();
                 
+                             dos=new DataOutputStream(client.getOutputStream());
 		receiver.start();
     }
 

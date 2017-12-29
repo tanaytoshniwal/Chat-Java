@@ -27,32 +27,14 @@ public class Client extends javax.swing.JFrame {
     static Socket clientSocket=null;
     static Client obj;
     static Receive2 receiver;
-    static Send2 sender;
+    static DataOutputStream dos;
     boolean b=true;
     public Client() {
         super("second");
         initComponents();
     }
-    class Send2 extends Thread{
-		synchronized public void run(){
-			try{
-                            OutputStream os=clientSocket.getOutputStream();
-                            DataOutputStream dos=new DataOutputStream(os);
-                            String str=msg.getText();
-                            if(!str.equals("")){
-                                dos.write(str.getBytes());
-                                dos.write(13);
-                                dos.flush();
-                            }
-        msg.setText("");
-                            dos.close();
-                            }
-			
-			catch(Exception e){}
-		}
-	}
 	class Receive2 extends Thread{
-		synchronized public void run(){
+		 public void run(){
 			try{
 				BufferedReader br=null;
 				try{
@@ -138,8 +120,17 @@ public class Client extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        sender=obj.new Send2();
-	sender.start();
+        try{
+                            String str=msg.getText();
+                            if(!str.equals("")){
+                                dos.write(str.getBytes());
+                                dos.write(13);
+                                dos.flush();
+                            }
+        msg.setText("");
+                            }
+			
+			catch(Exception e){}
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -150,6 +141,7 @@ public class Client extends javax.swing.JFrame {
 		obj.setVisible(true);
                 clientSocket=new Socket(InetAddress.getLocalHost(),99);
 		
+                             dos=new DataOutputStream(clientSocket.getOutputStream());
 		receiver=obj.new Receive2();
                 receiver.start();
     }
