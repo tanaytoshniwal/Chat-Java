@@ -28,6 +28,7 @@ public class Client extends javax.swing.JFrame {
     static Client obj;
     static Receive2 receiver;
     static Send2 sender;
+    boolean b=true;
     public Client() {
         super("second");
         initComponents();
@@ -45,7 +46,8 @@ public class Client extends javax.swing.JFrame {
                             }
         msg.setText("");
                             dos.close();
-			}
+                            }
+			
 			catch(Exception e){}
 		}
 	}
@@ -136,7 +138,7 @@ public class Client extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-	
+        sender=obj.new Send2();
 	sender.start();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -147,7 +149,7 @@ public class Client extends javax.swing.JFrame {
                 obj=new Client();
 		obj.setVisible(true);
                 clientSocket=new Socket(InetAddress.getLocalHost(),99);
-		sender=obj.new Send2();
+		
 		receiver=obj.new Receive2();
                 receiver.start();
     }

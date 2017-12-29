@@ -35,6 +35,7 @@ public class Server extends javax.swing.JFrame {
         super("first");
         initComponents();
     }
+    boolean b=true;
     class Receive1 extends Thread{
 		synchronized public void run(){
 			try{
@@ -145,7 +146,7 @@ public class Server extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
+        sender=obj.new Send1();
         sender.start();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -168,7 +169,7 @@ public class Server extends javax.swing.JFrame {
 		}
 		client=serverSocket.accept();
 		receiver=obj.new Receive1();
-                sender=obj.new Send1();
+                
 		receiver.start();
     }
 
