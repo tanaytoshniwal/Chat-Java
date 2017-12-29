@@ -29,6 +29,7 @@ public class Client extends javax.swing.JFrame {
     static Receive2 receiver;
     static Send2 sender;
     public Client() {
+        super("second");
         initComponents();
     }
     class Send2 extends Thread{
@@ -36,23 +37,16 @@ public class Client extends javax.swing.JFrame {
 			try{
                             OutputStream os=clientSocket.getOutputStream();
                             DataOutputStream dos=new DataOutputStream(os);
-                            String str="";
-                            System.out.println("Connection Established.");
-                            /*BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
-                            while(!(str=br.readLine()).equalsIgnoreCase("quit")){
-                            	dos.write(str.getBytes());
-                            	dos.write(13);
-                            	dos.flush();
-                            }*/
-                            str=msg.getText();
-                            while(!str.equals("")){
+                            String str=msg.getText();
+                            if(!str.equals("")){
                                 dos.write(str.getBytes());
                                 dos.write(13);
                                 dos.flush();
                             }
+        msg.setText("");
                             dos.close();
 			}
-			catch(IOException e){System.exit(0);}
+			catch(Exception e){}
 		}
 	}
 	class Receive2 extends Thread{
@@ -71,10 +65,11 @@ public class Client extends javax.swing.JFrame {
 				String str="";
 				while((str=br.readLine())!=null){
 					area.append(str);
+                                        area.append("\n");
 				}
 				br.close();
 			}
-			catch(IOException e){System.exit(0);}
+			catch(IOException e){}
 		}
 	}
     /**
@@ -141,18 +136,18 @@ public class Client extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-	sender=obj.new Send2();
+	
 	sender.start();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) throws IOException{
+    public static void main(String args[]) throws Exception{
                 obj=new Client();
 		obj.setVisible(true);
                 clientSocket=new Socket(InetAddress.getLocalHost(),99);
-		
+		sender=obj.new Send2();
 		receiver=obj.new Receive2();
                 receiver.start();
     }

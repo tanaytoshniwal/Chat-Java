@@ -32,6 +32,7 @@ public class Server extends javax.swing.JFrame {
     static Receive1 receiver;
     static Send1 sender;
     public Server() {
+        super("first");
         initComponents();
     }
     class Receive1 extends Thread{
@@ -49,10 +50,11 @@ public class Server extends javax.swing.JFrame {
                             String str="";
                             while((str=br.readLine())!=null){
                             	area.append(str);
+                                area.append("\n");
                             }
                             br.close();
 			}
-			catch(IOException e){System.exit(0);}
+			catch(IOException e){}
 		}
 	}
 	class Send1 extends Thread{
@@ -60,23 +62,23 @@ public class Server extends javax.swing.JFrame {
 			try{
                             OutputStream os=client.getOutputStream();
                             DataOutputStream dos=new DataOutputStream(os);
-                            String str="";
-                            System.out.println("Connection Established.");
                             /*BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
                             while(!(str=br.readLine()).equalsIgnoreCase("quit")){
                             	dos.write(str.getBytes());
                             	dos.write(13);
                             	dos.flush();
                             }*/
-                            str=msg.getText();
-                            while(!str.equals("")){
+                            String str=msg.getText();
+                            if(!str.equals("")){
                                 dos.write(str.getBytes());
                                 dos.write(13);
                                 dos.flush();
                             }
+                            
+        msg.setText("");
                             dos.close();
 			}
-			catch(IOException e){System.exit(0);}
+			catch(Exception e){}
 		}
 	}
     /**
@@ -143,14 +145,14 @@ public class Server extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        sender=obj.new Send1();
+        
         sender.start();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) throws IOException{
+    public static void main(String args[]) throws Exception{
 		obj=new Server();
 		obj.setVisible(true);
                 try{
@@ -165,8 +167,8 @@ public class Server extends javax.swing.JFrame {
 			System.exit(1);
 		}
 		client=serverSocket.accept();
-		
 		receiver=obj.new Receive1();
+                sender=obj.new Send1();
 		receiver.start();
     }
 
