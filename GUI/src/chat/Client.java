@@ -48,7 +48,7 @@ public class Client extends javax.swing.JFrame {
 				}
 				String str="";
 				while((str=br.readLine())!=null){
-					area.append(str);
+					area.append("User1:"+str);
                                         area.append("\n");
 				}
 				br.close();

@@ -50,7 +50,7 @@ public class Server extends javax.swing.JFrame {
                             }
                             String str="";
                             while((str=br.readLine())!=null){
-                            	area.append(str);
+                            	area.append("User2:"+str);
                                 area.append("\n");
                             }
                             br.close();
