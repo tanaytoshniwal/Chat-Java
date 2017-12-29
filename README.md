@@ -14,15 +14,30 @@ and run the **DemoServer.java** file first in one terminal window
 ```java
   $ java DemoServer
 ```
-and then run the **DemoClient.java** files in another terminal window
+and then run the **DemoClient.java** file in another terminal window
 ```java
   $ java DemoClient
 ```
-now you can type messages from both terminal window and see the chat!
+now you can type messages from both terminal window...
 
 _just type **quit** to exit_
 ## GUI application
-Still Working on this one...
+Just clone this repo and go to the GUI folder.
+Compile all the java files
+```java
+  $ javac *.java
+```
+and run the **Server.java** file first
+```java
+  $ java Server
+```
+and then run the **Client.java** file
+```java
+  $ java Client
+```
+now you can chat from the frames that shows up...
+
+_just **close** the frames to exit_
 
 
 **Note**-```The connection will be hosted on port number 99```
