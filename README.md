@@ -22,7 +22,7 @@ now you can type messages from both terminal window...
 
 _just type **quit** to exit_
 ### Demo:
-<img src='https://github.com/AlphaBAT69/Chat-Java/blob/master/gifs/nogui.gif' width='700px'>
+<p align="center"><img src='https://github.com/AlphaBAT69/Chat-Java/blob/master/gifs/nogui.gif' width='700px'></p>
 
 ## GUI application
 Just clone this repo and go to the GUI folder.
@@ -42,7 +42,7 @@ now you can chat from the frames that shows up...
 
 _just **close** the frames to exit_
 ### Demo:
-<img src='https://github.com/AlphaBAT69/Chat-Java/blob/master/gifs/gui.gif' width='700px'>
+<p align="center"><img src='https://github.com/AlphaBAT69/Chat-Java/blob/master/gifs/gui.gif' width='700px'></p>
 
 **Note**-```The connection will be hosted on port number 99```
 
